@@ -14,7 +14,11 @@ class FiguresController < ApplicationController
   end
 
   post '/figures' do
-    # create new figure
+    figure = Figure.new(params[:figure])
+    figure.landmarks.build(params["landmark"])
+    figure.titles.build(params["title"])
+    figure.save
+    redirect "figures/#{figure.id}"
   end
 
   get '/figures/:id/edit' do
