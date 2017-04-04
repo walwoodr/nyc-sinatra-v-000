@@ -27,7 +27,12 @@ class FiguresController < ApplicationController
   end
 
   patch '/figures/:id' do
-    # modify existing figure
+    figure = Figure.find(params[:id])
+    figure.update(params[:figure])
+    figure.landmarks.build(params["landmark"])
+    figure.titles.build(params["title"])
+    figure.save
+    redirect "figures/#{figure.id}"
   end
 
 end
